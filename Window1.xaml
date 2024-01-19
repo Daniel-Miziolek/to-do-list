@@ -1,0 +1,20 @@
+﻿<Window x:Class="ToDoList.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoList"
+        mc:Ignorable="d"
+        Title="Add task" Height="292" Width="474" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,-6">
+        <Calendar x:Name="calendar" HorizontalAlignment="Left" VerticalAlignment="Top" Height="269" Width="171" BorderBrush="{x:Null}" Margin="0,-10,0,0" SelectedDatesChanged="calendar_SelectedDatesChanged"/>
+        <TextBox x:Name="text_title" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="176,41,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Width="277" LostFocus="text_title_LostFocus" GotFocus="text_title_GotFocus"/>
+        <Label Content="Information" FontSize="16" HorizontalAlignment="Left" Margin="268,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="text_des" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="176,82,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Width="277" GotFocus="text_des_GotFocus" LostFocus="text_des_LostFocus"/>
+        <TextBox x:Name="text_date" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="176,124,0,0" TextWrapping="Wrap" Text="Date" VerticalAlignment="Top" Width="138"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="319,124,0,0" VerticalAlignment="Top" Width="134" Height="13"/>
+        <Button x:Name="btn_add" Content="Add" HorizontalAlignment="Left" FontSize="18" Margin="179,155,0,0" VerticalAlignment="Top" Height="104" Width="135" Click="btn_add_Click"/>
+        <Button x:Name="btn_back" Content="Back" HorizontalAlignment="Left" FontSize="18" Margin="319,155,0,0" VerticalAlignment="Top" Height="104" Width="135" Click="btn_back_Click"/>
+
+    </Grid>
+</Window>
