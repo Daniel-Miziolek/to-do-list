@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using MahApps.Metro.Controls;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -17,7 +18,7 @@ namespace toDoList
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
         private ObservableCollection<TaskItem> tasks;
         public ObservableCollection<TaskItem> Tasks
