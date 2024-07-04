@@ -1,12 +1,11 @@
-﻿<mah:MetroWindow x:Class="toDoList.MainWindow"
+﻿<Window x:Class="toDoList.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:toDoList"
         mc:Ignorable="d"
-        Title="ToDoList" Height="550" Width="800" Closing="Window_Closing">
+        Title="ToDoList" Height="550" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#FF131212">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,21 +13,35 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="NewTaskTextBox" Grid.Row="0" Margin="10" Text="{Binding NewTaskDescription, Mode=TwoWay}"/>
-        <Button Content="Dodaj zadanie" Click="AddTaskButton_Click" Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,10,10"/>
-        <ListBox x:Name="TaskList" Grid.Row="1" Margin="78,10,78,10" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+        <Button x:Name="btn_newTask" Content="New Task" Click="AddTaskButton_Click" Grid.Row="0" HorizontalAlignment="Left" Margin="666,10,0,10" Background="#FF4397CC" BorderBrush="{x:Null}" Width="82" FontSize="16"/>
+        <ListBox x:Name="TaskList" Grid.Row="1" Margin="39,10,78,10" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask, Mode=TwoWay}" Background="#FF131212" Foreground="White">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding IsDone}" VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding Description}" Margin="5,0"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Grid.Column="0" IsChecked="{Binding IsDone}" VerticalAlignment="Center"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="{Binding Description}" Margin="5,0"/>
+                            <TextBlock Text="Created: " Margin="10,0"/>
+                            <TextBlock Text="{Binding CreationDate, StringFormat='{}{0:dd-MM-yyyy HH:mm}'}" Margin="0,0,10,0"/>
+                            <TextBlock Text="Due: " Margin="10,0"/>
+                            <TextBlock Text="{Binding DueDate, StringFormat='{}{0:dd-MM-yyyy}'}" Margin="0,0,10,0"/>
+                        </StackPanel>
+                        <Button Grid.Column="2" Content="Usuń" HorizontalAlignment="Right" Margin="10,0" Click="RemoveTask_Click"/>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0,10">
-            <Button Content="Usuń" Click="RemoveTaskButton_Click" Margin="5"/>
-            <Button Content="Oznacz jako wykonane" Click="MarkAsDoneButton_Click" Margin="5"/>
-        </StackPanel>
+
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="0,10"/>
+        <Label Content="Your To Do" HorizontalAlignment="Left" Margin="39,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="22" FontFamily="Comic Sans MS"/>
     </Grid>
-</mah:MetroWindow>
+</Window>

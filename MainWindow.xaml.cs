@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -15,11 +14,10 @@ using System.Windows.Shapes;
 
 namespace toDoList
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+    
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public static MainWindow Instance {  get; private set; }
         private ObservableCollection<TaskItem> tasks;
         public ObservableCollection<TaskItem> Tasks
         {
@@ -56,6 +54,10 @@ namespace toDoList
         public MainWindow()
         {
             InitializeComponent();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             DataContext = this;
             Tasks = new ObservableCollection<TaskItem>();
             LoadTasksFromFile("tasks.txt");
@@ -63,7 +65,10 @@ namespace toDoList
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(NewTaskDescription))
+            Task task = new Task();
+            task.Show();
+
+            /*if (!string.IsNullOrWhiteSpace(NewTaskDescription))
             {
                 Tasks.Add(new TaskItem { Description = NewTaskDescription, IsDone = false });
                 NewTaskDescription = "";
@@ -71,7 +76,7 @@ namespace toDoList
             else
             {
                 MessageBox.Show("Wprowadź treść zadania.");
-            }
+            }*/
         }
 
         private void RemoveTaskButton_Click(object sender, RoutedEventArgs e)
@@ -144,6 +149,20 @@ namespace toDoList
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private void RemoveTask_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                TaskItem taskItem = button.DataContext as TaskItem;
+                if (taskItem != null)
+                {
+                    Tasks.Remove(taskItem);
+                }
+            }
+        }
+
     }
 
     public class TaskItem : INotifyPropertyChanged
@@ -181,6 +200,28 @@ namespace toDoList
             }
         }
 
+        private DateTime creationDate;
+        public DateTime CreationDate
+        {
+            get { return creationDate; }
+            set
+            {
+                creationDate = value;
+                OnPropertyChanged("CreationDate");
+            }
+        }
+
+        private DateTime dueDate;
+        public DateTime DueDate
+        {
+            get { return dueDate; }
+            set
+            {
+                dueDate = value;
+                OnPropertyChanged("DueDate");
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -188,4 +229,6 @@ namespace toDoList
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+
 }
